@@ -1,5 +1,6 @@
 package com.microservico.estoquepreco.connections;
 
+import com.microservico.estoquepreco.constantes.RabbitmqConstantes;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
@@ -19,6 +20,13 @@ public class RabbitMQConnection {
 	
 	private Binding relacionamento(Queue fila, DirectExchange troca) {
 		return new Binding(fila.getName(), Binding.DestinationType.EXCHANGE, troca.getName(), fila.getName(), null);
+	}
+	
+	private void adiciona() {
+		Queue filaEstoque = this.fila(RabbitmqConstantes.FILA_ESTOQUE);
+		Queue filaPreco = this.fila(RabbitmqConstantes.FILA_PRECO);
+		
+		DirectExchange troca = this.trocaDireta();
 	}
 
 }
